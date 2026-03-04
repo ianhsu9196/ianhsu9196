@@ -1,0 +1,65 @@
+# 安裝虛擬機
+
+作者: 許禕恩
+系級: 資管碩一
+環境: Ubuntu (VirtualBox)  
+實驗目的: arm-linux-gnueabihf  
+工具版本: Binutils 2.40  
+
+---
+
+# 1. 實驗目的
+
+本實驗的目的是在 x86 Ubuntu 系統 上建立 ARM 交叉編譯工具鏈（Cross Compiler Toolchain）。
+
+所謂 交叉編譯（Cross Compilation） 指的是：
+
+在一種 CPU 架構的電腦上，編譯出另一種 CPU 架構可以執行的程式。
+
+本實驗完成後，可以在 Ubuntu 上產生 ARM 程式，例如：
+arm-linux-gnueabihf-as
+arm-linux-gnueabihf-ld
+arm-linux-gnueabihf-objdump
+
+# 2. 建立工作目錄
+
+mkdir -p ~/WORK
+cd ~/WORK
+mkdir -p：建立資料夾
+
+~/WORK：位於使用者 home 目錄
+
+cd：進入該資料夾
+
+此資料夾將用來存放：
+
+原始碼
+
+編譯目錄
+
+安裝完成的 toolchain
+
+# 3. 安裝套件
+sudo apt update
+sudo apt install -y build-essential wget git texinfo
+
+# 4. 下載 Binutils 原始碼
+wget http://ftp.gnu.org/gnu/binutils/binutils-2.40.tar.gz
+
+# 5. 解壓縮原始碼
+tar -zxvf binutils-2.40.tar.gz
+
+# 6. 建立編譯目錄
+mkdir build_binutils
+cd build_binutils
+
+# 7. 設定configure
+../binutils-2.40/configure \
+--prefix=$HOME/WORK/crossgcc1 \
+--target=arm-linux-gnueabihf \
+--disable-nls \
+--disable-werror
+
+# 8. 開始編譯並安裝 Binutils
+make -j$(nproc)
+make install
