@@ -1,4 +1,4 @@
-# **安裝虛擬機**
+# 安裝虛擬機
 
 作者: 許禕恩
 系級: 資管碩一
@@ -17,19 +17,22 @@
 在一種 CPU 架構的電腦上，編譯出另一種 CPU 架構可以執行的程式。
 
 本實驗完成後，可以在 Ubuntu 上產生 ARM 程式，例如：
+```bash
 arm-linux-gnueabihf-as
 arm-linux-gnueabihf-ld
 arm-linux-gnueabihf-objdump
+```
 
 ## 2. 建立工作目錄
-
+```bash
 mkdir -p ~/WORK
 cd ~/WORK
-mkdir -p：建立資料夾
+```
+`mkdir -p`：建立資料夾
 
-~/WORK：位於使用者 home 目錄
+`~/WORK`：位於使用者 home 目錄
 
-cd：進入該資料夾
+`cd`：進入該資料夾
 
 此資料夾將用來存放：
 
@@ -40,26 +43,31 @@ cd：進入該資料夾
 安裝完成的 toolchain
 
 ## 3. 安裝套件
+```bash
 sudo apt update
 sudo apt install -y build-essential wget git texinfo
-
+```
 ## 4. 下載 Binutils 原始碼
-wget http://ftp.gnu.org/gnu/binutils/binutils-2.40.tar.gz
+`wget http://ftp.gnu.org/gnu/binutils/binutils-2.40.tar.gz`
 
 ## 5. 解壓縮原始碼
-tar -zxvf binutils-2.40.tar.gz
+`tar -zxvf binutils-2.40.tar.gz`
 
 ## 6. 建立編譯目錄
+```bash
 mkdir build_binutils
 cd build_binutils
-
+```
 ## 7. 設定configure
+```bash
 ../binutils-2.40/configure \
 --prefix=$HOME/WORK/crossgcc1 \
 --target=arm-linux-gnueabihf \
 --disable-nls \
 --disable-werror
-
+```
 ## 8. 開始編譯並安裝 Binutils
+```bash
 make -j$(nproc)
 make install
+```
